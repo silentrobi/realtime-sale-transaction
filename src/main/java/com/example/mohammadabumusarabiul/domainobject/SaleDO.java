@@ -1,13 +1,14 @@
 package com.example.mohammadabumusarabiul.domainobject;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 public class SaleDO {
 
     private UUID id;
     private Long salesAmount;
-    private ZonedDateTime date =  ZonedDateTime.now();
+    private LocalDateTime date =  LocalDateTime.now();
 
     public SaleDO(UUID id, Long salesAmount) {
         this.id = id;
@@ -30,11 +31,11 @@ public class SaleDO {
         this.salesAmount = salesAmount;
     }
 
-    public ZonedDateTime getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(ZonedDateTime date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 }
