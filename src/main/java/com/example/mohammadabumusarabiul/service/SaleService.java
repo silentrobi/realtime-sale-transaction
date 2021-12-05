@@ -25,9 +25,6 @@ public class SaleService {
     }
 
     public SaleStatisticDTO getSalesStatistics(){
-        Long totalSalesAmount = saleRepository.calculateSalesStatistics();
-
-        return new SaleStatisticDTO(String.valueOf(totalSalesAmount), String.valueOf(saleRepository.size()));
+        return saleRepository.calculateSalesStatistics();
     }
-
 }
