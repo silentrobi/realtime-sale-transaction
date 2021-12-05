@@ -1,16 +1,14 @@
 package com.example.mohammadabumusarabiul.controller;
 
 
-import com.example.mohammadabumusarabiul.datatransferobject.SaleDTO;
 import com.example.mohammadabumusarabiul.datatransferobject.SaleStatisticDTO;
+import com.example.mohammadabumusarabiul.service.DefaultSaleService;
 import com.example.mohammadabumusarabiul.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Map;
 
 /**
@@ -36,7 +34,6 @@ public class SaleController {
             throw new IllegalArgumentException("Missing required  field!");
         }
 
-        System.out.println(params);
         saleService.addSale(params.get("sales_amount"));
     }
 

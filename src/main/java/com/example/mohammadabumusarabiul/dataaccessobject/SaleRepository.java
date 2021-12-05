@@ -27,14 +27,11 @@ public class SaleRepository {
     }
 
     public SaleRepository() {
-        //initSaleStorage();
         saleStorage = new ConcurrentHashMap<>();
         dateTimeHelper = new DateTimeHelper();
     }
 
     public SaleStatisticDTO calculateSalesStatistics(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-
-        long startTime = System.currentTimeMillis();
 
         AtomicLong saleItemCount = new AtomicLong();
         final Map<UUID, UUID> markDeletableKeys = new ConcurrentHashMap<>();
@@ -51,31 +48,21 @@ public class SaleRepository {
             return value;
         }, Double::sum);
 
+        //free up memory
         CompletableFuture.runAsync(() -> deleteKeys(markDeletableKeys));
 
-        long endTime = System.currentTimeMillis();
-        System.out.println("That took " + (endTime - startTime) + " milliseconds");
-        System.out.println("sale storage: " + saleStorage.size());
-
-        final Double averageOrderAmount = saleItemCount.get() == 0L ? 0L : totalSaleWithinTimeInterval / saleItemCount.get();
+        final Double averageOrderAmount = saleItemCount.get() == 0 ? 0 : totalSaleWithinTimeInterval / saleItemCount.get();
         return new SaleStatisticDTO(String.valueOf(totalSaleWithinTimeInterval), String.valueOf(averageOrderAmount)); //
     }
 
     public SaleDO insert(SaleDO saleDO) {
-        System.out.println(saleStorage.size());
-        System.out.println(saleDO.getDate());
         return saleStorage.put(saleDO.getId(), saleDO);
     }
 
-    private void deleteKeys(Map<UUID, UUID> keys) {
+    private void deleteKeys(final Map<UUID, UUID> keys) {
         for (var entry : keys.entrySet()) {
             saleStorage.remove(entry.getKey());
         }
-
         keys.clear();
-    }
-
-    public int size() {
-        return saleStorage.size();
     }
 }
