@@ -21,7 +21,7 @@ public class SaleService {
     }
 
     public void addSale(String salesAmount){
-        SaleDO saleDO = new SaleDO(UUID.randomUUID(), Long.parseLong(salesAmount));
+        SaleDO saleDO = new SaleDO(UUID.randomUUID(), Double.parseDouble(salesAmount));
         saleRepository.insert(saleDO);
     }
 
