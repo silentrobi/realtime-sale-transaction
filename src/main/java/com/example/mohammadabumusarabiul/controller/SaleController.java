@@ -33,7 +33,7 @@ public class SaleController {
     public void addSale(@RequestParam Map<String, String> params) {
 
         if(params == null && params.get("sales_amount") == null){
-            throw new IllegalArgumentException("Required required field!");
+            throw new IllegalArgumentException("Missing required  field!");
         }
 
         System.out.println(params);

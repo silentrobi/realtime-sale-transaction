@@ -7,10 +7,10 @@ import java.util.UUID;
 public class SaleDO {
 
     private UUID id;
-    private Long salesAmount;
+    private Double salesAmount;
     private LocalDateTime date =  LocalDateTime.now();
 
-    public SaleDO(UUID id, Long salesAmount) {
+    public SaleDO(UUID id, Double salesAmount) {
         this.id = id;
         this.salesAmount = salesAmount;
     }
@@ -23,11 +23,11 @@ public class SaleDO {
         this.id = id;
     }
 
-    public Long getSalesAmount() {
+    public Double getSalesAmount() {
         return salesAmount;
     }
 
-    public void setSalesAmount(Long salesAmount) {
+    public void setSalesAmount(Double salesAmount) {
         this.salesAmount = salesAmount;
     }
 

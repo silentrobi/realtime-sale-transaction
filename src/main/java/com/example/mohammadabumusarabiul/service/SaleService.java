@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -25,6 +26,9 @@ public class SaleService {
     }
 
     public SaleStatisticDTO getSalesStatistics(){
-        return saleRepository.calculateSalesStatistics();
+        LocalDateTime startDateTime = LocalDateTime.now();
+        LocalDateTime endDateTime = startDateTime.minusMinutes(1);
+
+        return saleRepository.calculateSalesStatistics(startDateTime, endDateTime);
     }
 }
