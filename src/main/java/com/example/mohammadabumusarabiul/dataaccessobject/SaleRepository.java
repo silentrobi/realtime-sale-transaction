@@ -45,6 +45,7 @@ public class SaleRepository {
             if (dateTimeHelper.isInDeleteRange(v.getDate(), endDateTime)) {
                 markDeletableKeys.put(k, k);
             }
+
             return value;
         }, Double::sum);
 
