@@ -1,7 +1,10 @@
 package com.example.mohammadabumusarabiul.util;
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 
+@Component
 public class DateTimeHelper {
 
     public boolean isWithinRange(LocalDateTime testDateTime, LocalDateTime startDateTime, LocalDateTime endDateTime) {
