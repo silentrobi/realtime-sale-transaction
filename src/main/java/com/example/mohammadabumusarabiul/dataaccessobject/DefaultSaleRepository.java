@@ -36,7 +36,6 @@ public class DefaultSaleRepository extends AbstractCrudRepository<SaleDO, UUID> 
     @Override
     public SaleStatisticDTO calculateSalesStatistics(LocalDateTime startDateTime, LocalDateTime endDateTime) {
 
-        long startTime = System.currentTimeMillis();
         AtomicLong saleItemCount = new AtomicLong();
         final Map<UUID, UUID> markDeletableKeys = new ConcurrentHashMap<>();
 
@@ -57,10 +56,6 @@ public class DefaultSaleRepository extends AbstractCrudRepository<SaleDO, UUID> 
         CompletableFuture.runAsync(() -> deleteKeys(markDeletableKeys));
 
         final Double averageOrderAmount = saleItemCount.get() == 0 ? 0 : totalSaleWithinTimeInterval / saleItemCount.get();
-
-        long endTime = System.currentTimeMillis();
-
-        System.out.println("ConcurrentHashMap took " + (endTime - startTime) + " milliseconds");
 
         return new SaleStatisticDTO(String.valueOf(totalSaleWithinTimeInterval), String.valueOf(averageOrderAmount)); //
     }
