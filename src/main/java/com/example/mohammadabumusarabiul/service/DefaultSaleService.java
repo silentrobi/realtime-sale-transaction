@@ -22,7 +22,6 @@ public class DefaultSaleService implements SaleService {
 
     @Override
     public void addSale(String salesAmount) {
-        System.out.println(Thread.currentThread().getName());
         SaleDO saleDO = new SaleDO(UUID.randomUUID(), Double.parseDouble(salesAmount));
         saleRepository.upsert(saleDO.getId(), saleDO);
     }
