@@ -31,6 +31,6 @@ public class DefaultSaleService implements SaleService{
         LocalDateTime startDateTime = LocalDateTime.now();
         LocalDateTime endDateTime = startDateTime.minusMinutes(1);
 
-        return saleRepository.calculateSalesStatistics(startDateTime, endDateTime);
+        return saleRepository.calculateSalesStatistics2(startDateTime, endDateTime);
     }
 }
