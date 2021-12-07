@@ -1,13 +1,15 @@
 package com.example.mohammadabumusarabiul.datatransferobject;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
-public class SaleDTO {
+public class SaleDTO extends  AbstractSaleDTO{
 
-    @NotNull(message = "sales amount can not be null!")
+    @NotNull(message = "Sales amount can not be null!")
+    @DecimalMin(value = "0.0", message = "Invalid sales amount")
+    @JsonProperty("sales_amount")
     private String salesAmount;
 
     public String getSalesAmount() {

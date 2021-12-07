@@ -1,6 +1,7 @@
 package com.example.mohammadabumusarabiul.controller;
 
 
+import com.example.mohammadabumusarabiul.datatransferobject.SaleDTO;
 import com.example.mohammadabumusarabiul.datatransferobject.SaleStatisticDTO;
 import com.example.mohammadabumusarabiul.service.DefaultSaleService;
 import com.example.mohammadabumusarabiul.service.SaleService;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 /**
@@ -28,13 +30,8 @@ public class SaleController {
 
     @PostMapping(path = "/sales", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public void addSale(@RequestParam Map<String, String> params) {
-
-        if(params == null && params.get("sales_amount") == null){
-            throw new IllegalArgumentException("Missing required  field!");
-        }
-        System.out.println(Thread.currentThread().getName());
-        saleService.addSale(params.get("sales_amount"));
+    public void addSale(@Valid SaleDTO saleDTO) {
+        saleService.addSale(saleDTO.getSalesAmount());
     }
 
     @GetMapping("/statistics")
