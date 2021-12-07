@@ -30,7 +30,6 @@ public class DefaultSaleRepository extends AbstractCrudRepository<SaleDO, UUID> 
         super(saleStorage);
         this.saleStorage = saleStorage;
         this.dateTimeHelper = dateTimeHelper;
-        initSaleStorage();
     }
 
     @Override

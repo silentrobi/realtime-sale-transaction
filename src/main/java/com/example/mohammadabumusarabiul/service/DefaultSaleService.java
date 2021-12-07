@@ -1,6 +1,6 @@
 package com.example.mohammadabumusarabiul.service;
 
-import com.example.mohammadabumusarabiul.dataaccessobject.DefaultSaleRepository;
+import com.example.mohammadabumusarabiul.dataaccessobject.SaleRepository;
 import com.example.mohammadabumusarabiul.datatransferobject.SaleStatisticDTO;
 import com.example.mohammadabumusarabiul.domainobject.SaleDO;
 
@@ -13,10 +13,10 @@ import java.util.UUID;
 @Service
 public class DefaultSaleService implements SaleService {
 
-    private final DefaultSaleRepository saleRepository;
+    private final SaleRepository saleRepository;
 
     @Autowired
-    public DefaultSaleService(final DefaultSaleRepository saleRepository) {
+    public DefaultSaleService(final SaleRepository saleRepository) {
         this.saleRepository = saleRepository;
     }
 

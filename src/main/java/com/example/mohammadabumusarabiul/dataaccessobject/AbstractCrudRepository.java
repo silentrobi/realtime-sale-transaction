@@ -1,7 +1,6 @@
 package com.example.mohammadabumusarabiul.dataaccessobject;
 
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class AbstractCrudRepository<T, Tkey> implements CrudRepository<T, Tkey> {
 
@@ -17,8 +16,8 @@ public abstract class AbstractCrudRepository<T, Tkey> implements CrudRepository<
     }
 
     @Override
-    public T upsert(Tkey id, T entity) {
-        return storage.put(id, entity);
+    public void upsert(Tkey id, T entity) {
+        storage.put(id, entity);
     }
 
     @Override
