@@ -66,7 +66,7 @@ public class DateTimeHelperUnitTest {
     }
 
     @Test
-    public void whenTargetDateTime_BetweenStartAndEndDateTime_shouldReturn_true(){
+    public void whenTargetDateTime_BetweenStartAndEndDateTime_shouldReturn_true() {
         //Given
         LocalDateTime startDateTime = LocalDateTime.now();
         LocalDateTime targetDateTime = startDateTime.minusMinutes(1);
@@ -96,9 +96,8 @@ public class DateTimeHelperUnitTest {
     @Test
     public void whenTargetDateTime_AfterStartDateTimeButAfterEndDateTime_shouldReturn_false() {
         //Given
-
         LocalDateTime startDateTime = LocalDateTime.now();
-        LocalDateTime targetDateTime= startDateTime.plusMinutes(1);
+        LocalDateTime targetDateTime = startDateTime.plusMinutes(1);
         LocalDateTime endDateTime = targetDateTime.minusMinutes(1);
 
         //When
@@ -111,7 +110,7 @@ public class DateTimeHelperUnitTest {
     @Test
     public void whenTargetDateTime_AfterEndDateTime_Then_isInDeleteRange_shouldReturn_false() {
         //Given
-        LocalDateTime targetDateTime= LocalDateTime.now();
+        LocalDateTime targetDateTime = LocalDateTime.now();
         LocalDateTime endDateTime = targetDateTime.minusMinutes(1);
 
         //When
@@ -124,7 +123,7 @@ public class DateTimeHelperUnitTest {
     @Test
     public void whenTargetDateTime_BeforeEndDateTime_Then_isInDeleteRange_shouldReturn_true() {
         //Given
-        LocalDateTime targetDateTime= LocalDateTime.now();
+        LocalDateTime targetDateTime = LocalDateTime.now();
         LocalDateTime endDateTime = targetDateTime.plusMinutes(1);
 
         //When
@@ -137,7 +136,7 @@ public class DateTimeHelperUnitTest {
     @Test
     public void whenTargetDateTime_EqualEndDateTime_Then_isInDeleteRange_shouldReturn_true() {
         //Given
-        LocalDateTime targetDateTime= LocalDateTime.now();
+        LocalDateTime targetDateTime = LocalDateTime.now();
 
         //When
         var result = dateTimeHelper.isInDeleteRange(targetDateTime, targetDateTime);

@@ -34,7 +34,6 @@ public class DefaultSaleRepository extends AbstractCrudRepository<SaleDO, UUID> 
 
     @Override
     public SaleStatisticDTO calculateSalesStatistics(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-
         AtomicLong saleItemCount = new AtomicLong();
         final Map<UUID, UUID> markDeletableKeys = new ConcurrentHashMap<>();
 

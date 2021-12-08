@@ -5,14 +5,13 @@ import com.example.mohammadabumusarabiul.dataaccessobject.SaleRepository;
 
 import com.example.mohammadabumusarabiul.domainobject.SaleDO;
 import com.example.mohammadabumusarabiul.util.DateTimeHelper;
-import org.junit.Assert;
+
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -32,7 +31,6 @@ public class SaleRepositoryUnitTest {
         SaleDO saleDO = new SaleDO(UUID.randomUUID(), 100.0);
 
         saleRepository.upsert(saleDO.getId(), saleDO);
-
         var entry = saleRepository.findById(saleDO.getId());
 
         Assertions.assertEquals(saleDO.getId(), entry.getId());
@@ -41,7 +39,6 @@ public class SaleRepositoryUnitTest {
 
     @Test
     public void shouldUpdateSale() {
-
         SaleDO saleDO = new SaleDO(UUID.randomUUID(), 100.0);
         storage.put(saleDO.getId(), saleDO);
 
@@ -54,7 +51,6 @@ public class SaleRepositoryUnitTest {
 
     @Test
     public void shouldDeleteASale() {
-
         SaleDO saleDO = new SaleDO(UUID.randomUUID(), 100.0);
         storage.put(saleDO.getId(), saleDO);
 
@@ -73,8 +69,8 @@ public class SaleRepositoryUnitTest {
         sales.add(new SaleDO(UUID.randomUUID(), 250.0));
         sales.add(new SaleDO(UUID.randomUUID(), 175.0));
 
-        for(SaleDO saleDO : sales){
-            storage.put(saleDO.getId(),saleDO);
+        for (SaleDO saleDO : sales) {
+            storage.put(saleDO.getId(), saleDO);
         }
 
         Thread.sleep(10);
@@ -88,7 +84,6 @@ public class SaleRepositoryUnitTest {
         Assertions.assertEquals("143.75", saleStatisticDTO.getAverageAmountPerOrder());
     }
 
-
     @Test
     public void shouldCalculateSalesStatisticsOfAllOrdersExceptLastOne_saleDateTimeWithinStartDateTimeCheck() throws InterruptedException {
         List<SaleDO> sales = new ArrayList<>();
@@ -96,8 +91,8 @@ public class SaleRepositoryUnitTest {
         sales.add(new SaleDO(UUID.randomUUID(), 50.0));
         sales.add(new SaleDO(UUID.randomUUID(), 50.0));
         sales.add(new SaleDO(UUID.randomUUID(), 210.0));
-        for(SaleDO saleDO : sales){
-            storage.put(saleDO.getId(),saleDO);
+        for (SaleDO saleDO : sales) {
+            storage.put(saleDO.getId(), saleDO);
         }
 
         Thread.sleep(10);
@@ -127,8 +122,8 @@ public class SaleRepositoryUnitTest {
         sales.add(new SaleDO(UUID.randomUUID(), 50.0));
         sales.add(new SaleDO(UUID.randomUUID(), 50.0));
         sales.add(new SaleDO(UUID.randomUUID(), 210.0));
-        for(SaleDO saleDO : sales){
-            storage.put(saleDO.getId(),saleDO);
+        for (SaleDO saleDO : sales) {
+            storage.put(saleDO.getId(), saleDO);
         }
 
         Thread.sleep(10);
@@ -142,7 +137,6 @@ public class SaleRepositoryUnitTest {
         Assertions.assertEquals("103.33", saleStatisticDTO.getAverageAmountPerOrder());
     }
 
-
     @Test
     public void shouldDeletedOrdersThatFall_InDeletedRange() throws InterruptedException {
         List<SaleDO> sales = new ArrayList<>();
@@ -155,8 +149,8 @@ public class SaleRepositoryUnitTest {
         sales.add(new SaleDO(UUID.randomUUID(), 50.0));
         sales.add(new SaleDO(UUID.randomUUID(), 210.0));
 
-        for(SaleDO saleDO : sales){
-            storage.put(saleDO.getId(),saleDO);
+        for (SaleDO saleDO : sales) {
+            storage.put(saleDO.getId(), saleDO);
         }
 
         Thread.sleep(10);

@@ -34,7 +34,7 @@ public class SaleControllerRestIntegrationTest {
     private SaleRepository saleRepository;
 
     @Before
-    public void clearStorage(){
+    public void clearStorage() {
         saleRepository.deleteAll();
     }
 
@@ -42,7 +42,6 @@ public class SaleControllerRestIntegrationTest {
     public void whenValidSalesAmount_thenAccept_newSale() throws Exception {
         mvc.perform(post("/sales").contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE).param("sales_amount", "100.0"))
                 .andExpect(status().isAccepted());
-
     }
 
     @Test
@@ -55,7 +54,6 @@ public class SaleControllerRestIntegrationTest {
 
         mvc.perform(post("/sales").contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE).param("sales_amount", "asdad"))
                 .andExpect(status().isBadRequest());
-
     }
 
     @Test
@@ -66,8 +64,8 @@ public class SaleControllerRestIntegrationTest {
         sales.add(new SaleDO(UUID.randomUUID(), 50.0));
         sales.add(new SaleDO(UUID.randomUUID(), 210.0));
 
-        for(SaleDO saleDO : sales){
-            saleRepository.upsert(saleDO.getId(),saleDO);
+        for (SaleDO saleDO : sales) {
+            saleRepository.upsert(saleDO.getId(), saleDO);
         }
 
         mvc.perform(get("/statistics").contentType(MediaType.APPLICATION_JSON))
