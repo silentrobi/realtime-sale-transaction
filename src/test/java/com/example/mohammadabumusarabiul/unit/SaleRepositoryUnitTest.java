@@ -7,6 +7,7 @@ import com.example.mohammadabumusarabiul.domainobject.SaleDO;
 import com.example.mohammadabumusarabiul.util.DateTimeHelper;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -34,8 +35,8 @@ public class SaleRepositoryUnitTest {
 
         var entry = saleRepository.findById(saleDO.getId());
 
-        Assert.assertEquals(saleDO.getId(), entry.getId());
-        Assert.assertEquals(saleDO.getSalesAmount(), entry.getSalesAmount());
+        Assertions.assertEquals(saleDO.getId(), entry.getId());
+        Assertions.assertEquals(saleDO.getSalesAmount(), entry.getSalesAmount());
     }
 
     @Test
@@ -48,7 +49,7 @@ public class SaleRepositoryUnitTest {
 
         var entry = saleRepository.findById(saleDO.getId());
 
-        Assert.assertEquals(Double.valueOf(200.0), entry.getSalesAmount());
+        Assertions.assertEquals(Double.valueOf(200.0), entry.getSalesAmount());
     }
 
     @Test
@@ -61,7 +62,7 @@ public class SaleRepositoryUnitTest {
 
         var entry = saleRepository.findById(saleDO.getId());
 
-        Assert.assertEquals(null, entry);
+        Assertions.assertNull(entry);
     }
 
     @Test
@@ -83,7 +84,94 @@ public class SaleRepositoryUnitTest {
 
         var saleStatisticDTO = saleRepository.calculateSalesStatistics(startDateTime, endDateTime);
 
-        Assert.assertEquals(Double.toString(575.0), saleStatisticDTO.getTotalSalesAmount());
-        Assert.assertEquals(Double.toString(143.75), saleStatisticDTO.getAverageAmountPerOrder());
+        Assertions.assertEquals("575.00", saleStatisticDTO.getTotalSalesAmount());
+        Assertions.assertEquals("143.75", saleStatisticDTO.getAverageAmountPerOrder());
+    }
+
+
+    @Test
+    public void shouldCalculateSalesStatisticsOfAllOrdersExceptLastOne_saleDateTimeWithinStartDateTimeCheck() throws InterruptedException {
+        List<SaleDO> sales = new ArrayList<>();
+        sales.add(new SaleDO(UUID.randomUUID(), 100.0));
+        sales.add(new SaleDO(UUID.randomUUID(), 50.0));
+        sales.add(new SaleDO(UUID.randomUUID(), 50.0));
+        sales.add(new SaleDO(UUID.randomUUID(), 210.0));
+        for(SaleDO saleDO : sales){
+            storage.put(saleDO.getId(),saleDO);
+        }
+
+        Thread.sleep(10);
+
+        LocalDateTime startDateTime = LocalDateTime.now();
+        LocalDateTime endDateTime = startDateTime.minusMinutes(1);
+
+        Thread.sleep(10);
+
+        SaleDO saleDO = new SaleDO(UUID.randomUUID(), 175.0);
+        storage.put(saleDO.getId(), saleDO);
+
+        var saleStatisticDTO = saleRepository.calculateSalesStatistics(startDateTime, endDateTime);
+
+        Assertions.assertEquals("410.00", saleStatisticDTO.getTotalSalesAmount());
+        Assertions.assertEquals("102.50", saleStatisticDTO.getAverageAmountPerOrder());
+    }
+
+    @Test
+    public void shouldCalculateSalesStatisticsOfAllOrdersExceptFirstOne_saleDateTimeWithinEndDateTimeCheck() throws InterruptedException {
+        List<SaleDO> sales = new ArrayList<>();
+        sales.add(new SaleDO(UUID.randomUUID(), 100.0));
+
+        LocalDateTime dateTime = sales.get(0).getDate();
+        sales.get(0).setDate(dateTime.minusMinutes(1));
+
+        sales.add(new SaleDO(UUID.randomUUID(), 50.0));
+        sales.add(new SaleDO(UUID.randomUUID(), 50.0));
+        sales.add(new SaleDO(UUID.randomUUID(), 210.0));
+        for(SaleDO saleDO : sales){
+            storage.put(saleDO.getId(),saleDO);
+        }
+
+        Thread.sleep(10);
+
+        LocalDateTime startDateTime = LocalDateTime.now();
+        LocalDateTime endDateTime = startDateTime.minusMinutes(1);
+
+        var saleStatisticDTO = saleRepository.calculateSalesStatistics(startDateTime, endDateTime);
+
+        Assertions.assertEquals("310.00", saleStatisticDTO.getTotalSalesAmount());
+        Assertions.assertEquals("103.33", saleStatisticDTO.getAverageAmountPerOrder());
+    }
+
+
+    @Test
+    public void shouldDeletedOrdersThatFall_InDeletedRange() throws InterruptedException {
+        List<SaleDO> sales = new ArrayList<>();
+        sales.add(new SaleDO(UUID.randomUUID(), 100.0));
+
+        LocalDateTime dateTime = sales.get(0).getDate();
+        sales.get(0).setDate(dateTime.minusMinutes(1));
+
+        sales.add(new SaleDO(UUID.randomUUID(), 50.0));
+        sales.add(new SaleDO(UUID.randomUUID(), 50.0));
+        sales.add(new SaleDO(UUID.randomUUID(), 210.0));
+
+        for(SaleDO saleDO : sales){
+            storage.put(saleDO.getId(),saleDO);
+        }
+
+        Thread.sleep(10);
+
+        LocalDateTime startDateTime = LocalDateTime.now();
+        LocalDateTime endDateTime = startDateTime.minusMinutes(1);
+
+        saleRepository.calculateSalesStatistics(startDateTime, endDateTime);
+
+        Thread.sleep(100);
+
+        SaleDO saleDO = storage.get(sales.get(0).getId());
+
+        Assertions.assertNull(saleDO);
+
+        Assertions.assertEquals(3, storage.size());
     }
 }

@@ -56,7 +56,7 @@ public class DefaultSaleRepository extends AbstractCrudRepository<SaleDO, UUID> 
 
         final Double averageOrderAmount = saleItemCount.get() == 0 ? 0 : totalSaleWithinTimeInterval / saleItemCount.get();
 
-        return new SaleStatisticDTO(String.valueOf(totalSaleWithinTimeInterval), String.valueOf(averageOrderAmount)); //
+        return new SaleStatisticDTO(String.format("%.2f", totalSaleWithinTimeInterval), String.format("%.2f", averageOrderAmount));
     }
 
     private void deleteKeys(final Map<UUID, UUID> keys) {

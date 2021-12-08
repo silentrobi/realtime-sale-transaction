@@ -28,7 +28,6 @@ public class DefaultSaleService implements SaleService {
 
     @Override
     public SaleStatisticDTO getSalesStatistics() {
-
         LocalDateTime startDateTime = LocalDateTime.now();
         LocalDateTime endDateTime = startDateTime.minusMinutes(1);
 

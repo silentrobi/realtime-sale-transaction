@@ -1,7 +1,8 @@
 package com.example.mohammadabumusarabiul.unit;
 
 import com.example.mohammadabumusarabiul.util.DateTimeHelper;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -13,14 +14,13 @@ public class DateTimeHelperUnitTest {
     public void whenTargetDateTime_EqualToStartDateTime_shouldReturn_false() {
         //Given
         LocalDateTime startDateTime = LocalDateTime.now();
-        LocalDateTime targetDateTime = startDateTime;
         LocalDateTime endDateTime = startDateTime.minusMinutes(1);
 
         //When
-        var result = dateTimeHelper.isWithinRange(targetDateTime, startDateTime, endDateTime);
+        var result = dateTimeHelper.isWithinRange(startDateTime, startDateTime, endDateTime);
 
         //Then
-        Assert.assertEquals(false, result);
+        Assertions.assertEquals(false, result);
     }
 
     @Test
@@ -35,7 +35,7 @@ public class DateTimeHelperUnitTest {
         var result = dateTimeHelper.isWithinRange(targetDateTime, startDateTime, endDateTime);
 
         //Then
-        Assert.assertEquals(false, result);
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class DateTimeHelperUnitTest {
         var result = dateTimeHelper.isWithinRange(targetDateTime, startDateTime, endDateTime);
 
         //Then
-        Assert.assertEquals(false, result);
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -57,13 +57,12 @@ public class DateTimeHelperUnitTest {
         //Given
         LocalDateTime startDateTime = LocalDateTime.now();
         LocalDateTime endDateTime = startDateTime.minusMinutes(1);
-        LocalDateTime targetDateTime = endDateTime;
 
         //When
-        var result = dateTimeHelper.isWithinRange(targetDateTime, startDateTime, endDateTime);
+        var result = dateTimeHelper.isWithinRange(endDateTime, startDateTime, endDateTime);
 
         //Then
-        Assert.assertEquals(true, result);
+        Assertions.assertTrue(result);
     }
 
     @Test
@@ -77,7 +76,7 @@ public class DateTimeHelperUnitTest {
         var result = dateTimeHelper.isWithinRange(targetDateTime, startDateTime, endDateTime);
 
         //Then
-        Assert.assertEquals(true, result);
+        Assertions.assertTrue(result);
     }
 
     @Test
@@ -91,7 +90,7 @@ public class DateTimeHelperUnitTest {
         var result = dateTimeHelper.isWithinRange(targetDateTime, startDateTime, endDateTime);
 
         //Then
-        Assert.assertEquals(false, result);
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -106,7 +105,7 @@ public class DateTimeHelperUnitTest {
         var result = dateTimeHelper.isWithinRange(targetDateTime, startDateTime, endDateTime);
 
         //Then
-        Assert.assertEquals(false, result);
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -119,7 +118,7 @@ public class DateTimeHelperUnitTest {
         var result = dateTimeHelper.isInDeleteRange(targetDateTime, endDateTime);
 
         //Then
-        Assert.assertEquals(false, result);
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -132,19 +131,18 @@ public class DateTimeHelperUnitTest {
         var result = dateTimeHelper.isInDeleteRange(targetDateTime, endDateTime);
 
         //Then
-        Assert.assertEquals(true, result);
+        Assertions.assertTrue(result);
     }
 
     @Test
     public void whenTargetDateTime_EqualEndDateTime_Then_isInDeleteRange_shouldReturn_true() {
         //Given
         LocalDateTime targetDateTime= LocalDateTime.now();
-        LocalDateTime endDateTime = targetDateTime;
 
         //When
-        var result = dateTimeHelper.isInDeleteRange(targetDateTime, endDateTime);
+        var result = dateTimeHelper.isInDeleteRange(targetDateTime, targetDateTime);
 
         //Then
-        Assert.assertEquals(true, result);
+        Assertions.assertTrue(result);
     }
 }

@@ -24,4 +24,10 @@ public abstract class AbstractCrudRepository<T, Tkey> implements CrudRepository<
     public void delete(Tkey id){
          storage.remove(id);
     }
+
+    @Override
+    public void deleteAll(){
+        storage.clear();
+    }
+
 }
