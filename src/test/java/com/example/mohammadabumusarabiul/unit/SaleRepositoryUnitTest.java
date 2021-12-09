@@ -141,9 +141,10 @@ public class SaleRepositoryUnitTest {
     public void shouldDeletedOrdersThatFall_InDeletedRange() throws InterruptedException {
         List<SaleDO> sales = new ArrayList<>();
         sales.add(new SaleDO(UUID.randomUUID(), 100.0));
+        sales.add(new SaleDO(UUID.randomUUID(), 100.0));
 
-        LocalDateTime dateTime = sales.get(0).getDate();
-        sales.get(0).setDate(dateTime.minusMinutes(1));
+        sales.get(0).setDate(sales.get(0).getDate().minusMinutes(1));
+        sales.get(1).setDate(sales.get(1).getDate().minusMinutes(1));
 
         sales.add(new SaleDO(UUID.randomUUID(), 50.0));
         sales.add(new SaleDO(UUID.randomUUID(), 50.0));
