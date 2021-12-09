@@ -15,16 +15,9 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository
 public class DefaultSaleRepository extends AbstractCrudRepository<SaleDO, UUID> implements SaleRepository {
 
-    final static int PARALLELISM_THRESHOLD = 10000;
-    final private ConcurrentHashMap<UUID, SaleDO> saleStorage;
-    final private DateTimeHelper dateTimeHelper;
-
-    private void initSaleStorage() {
-        for (int i = 0; i < 250000; i++) {
-            SaleDO saleDO = new SaleDO(UUID.randomUUID(), 1000.0);
-            saleStorage.put(saleDO.getId(), saleDO);
-        }
-    }
+    private static final int PARALLELISM_THRESHOLD = 10000;
+    private final ConcurrentHashMap<UUID, SaleDO> saleStorage;
+    private final DateTimeHelper dateTimeHelper;
 
     public DefaultSaleRepository(final ConcurrentHashMap<UUID, SaleDO> saleStorage, final DateTimeHelper dateTimeHelper) {
         super(saleStorage);

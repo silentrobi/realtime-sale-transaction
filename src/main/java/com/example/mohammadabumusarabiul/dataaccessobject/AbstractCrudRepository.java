@@ -4,7 +4,7 @@ import java.util.Map;
 
 public abstract class AbstractCrudRepository<T, Tkey> implements CrudRepository<T, Tkey> {
 
-    final private Map<Tkey, T> storage;
+    private final Map<Tkey, T> storage;
 
     public AbstractCrudRepository(final Map<Tkey, T> storage) {
         this.storage = storage;
@@ -29,5 +29,4 @@ public abstract class AbstractCrudRepository<T, Tkey> implements CrudRepository<
     public void deleteAll(){
         storage.clear();
     }
-
 }
