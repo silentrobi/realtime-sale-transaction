@@ -15,25 +15,33 @@ To build a system that can perform sale transactions.
 - JUnit
 - JMeter (Performance Test)
 
+
+## Setup
+
+- To build and run the project
 ## About Performance Test
-To test the server's performance, I used JMeter.
+To test the server's performance, I used JMeter GUI.
 
 **Sample Test Plan setup**
 
-Sale-API
-![alt text](./docs/sale-test-plan.png "sale-test-plan")
+I created two thread groups: one for sale api and another for statistics api. 
+
+*Sale-API*
+
+![alt text](./docs/2.png "sale-test-plan")
 
 - Graph Result
-![alt text](./docs/sale-graph-result.png "sale-graph-result")
+![alt text](./docs/1.png "sale-graph-result")
 
-- Response  Graph
-![alt text](./docs/sale-graph-response-time.png "sale-graph-response-time")
+- Summary Report
+![alt text](./docs/3.png "sale-summary-report")
 
-Statistics-API
-![alt text](./docs/statistics-test-plan.png "statistics-test-plan")
+*Statistics-API*
+
+![alt text](./docs/4.png "statistics-test-plan")
 
 - Graph Result
-  ![alt text](./docs/statistics-graph-result.png "statistics-graph-result")
+  ![alt text](./docs/5.png "statistics-graph-result")
 
-- Response  Graph
-  ![alt text](./docs/statistics-graph-response-time.png "statistics-graph-response-time")
+- Summary Report
+  ![alt text](./docs/6.png "statistics-summary-report")

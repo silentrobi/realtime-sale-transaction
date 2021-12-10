@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository
 public class DefaultSaleRepository extends AbstractCrudRepository<SaleDO, UUID> implements SaleRepository {
 
-    private static final int PARALLELISM_THRESHOLD = 10000;
+    private static final int PARALLELISM_THRESHOLD = 1;
     private final ConcurrentHashMap<UUID, SaleDO> saleStorage;
     private final DateTimeHelper dateTimeHelper;
 
@@ -43,10 +43,15 @@ public class DefaultSaleRepository extends AbstractCrudRepository<SaleDO, UUID> 
             return value;
         }, Double::sum);
 
+        if (totalSaleWithinTimeInterval == null) {
+            totalSaleWithinTimeInterval = 0.0;
+        }
+
         //free up memory
         CompletableFuture.runAsync(() -> deleteKeys(markDeletableKeys));
 
-        final Double averageOrderAmount = saleItemCount.get() == 0 ? 0 : totalSaleWithinTimeInterval / saleItemCount.get();
+        final Double averageOrderAmount = saleItemCount.get() == 0 ? 0.0 : totalSaleWithinTimeInterval / saleItemCount.get();
+
 
         return new SaleStatisticDTO(String.format("%.2f", totalSaleWithinTimeInterval), String.format("%.2f", averageOrderAmount));
     }
