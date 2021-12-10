@@ -134,7 +134,7 @@ public class DateTimeHelperUnitTest {
     }
 
     @Test
-    public void whenTargetDateTime_EqualEndDateTime_Then_isInDeleteRange_shouldReturn_true() {
+    public void whenTargetDateTime_EqualEndDateTime_Then_isInDeleteRange_shouldReturn_false() {
         //Given
         LocalDateTime targetDateTime = LocalDateTime.now();
 
@@ -142,6 +142,6 @@ public class DateTimeHelperUnitTest {
         var result = dateTimeHelper.isInDeleteRange(targetDateTime, targetDateTime);
 
         //Then
-        Assertions.assertTrue(result);
+        Assertions.assertFalse(result);
     }
 }

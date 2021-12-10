@@ -55,6 +55,5 @@ public class DefaultSaleRepository extends AbstractCrudRepository<SaleDO, UUID> 
         for (var entry : keys.entrySet()) {
             saleStorage.remove(entry.getKey());
         }
-        keys.clear();
     }
 }

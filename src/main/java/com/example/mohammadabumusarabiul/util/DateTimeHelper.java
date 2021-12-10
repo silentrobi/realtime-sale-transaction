@@ -13,6 +13,6 @@ public class DateTimeHelper {
     }
 
     public boolean isInDeleteRange(LocalDateTime testDateTime, LocalDateTime endDateTime) {
-        return testDateTime.isEqual(endDateTime) || testDateTime.isBefore(endDateTime);
+        return testDateTime.isBefore(endDateTime);
     }
 }
