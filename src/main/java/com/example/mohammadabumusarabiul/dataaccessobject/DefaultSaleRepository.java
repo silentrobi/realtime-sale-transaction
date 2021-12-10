@@ -25,6 +25,14 @@ public class DefaultSaleRepository extends AbstractCrudRepository<SaleDO, UUID> 
         this.dateTimeHelper = dateTimeHelper;
     }
 
+    /**
+     * calculate sales statistics and free up memory asynchronously
+     * by deleting sale objects of those has datetime before given endDateTime.
+     *
+     * @param startDateTime
+     * @param endDateTime
+     * @return return sale statistics
+     */
     @Override
     public SaleStatisticDTO calculateSalesStatistics(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         AtomicLong saleItemCount = new AtomicLong();
@@ -51,7 +59,6 @@ public class DefaultSaleRepository extends AbstractCrudRepository<SaleDO, UUID> 
         CompletableFuture.runAsync(() -> deleteKeys(markDeletableKeys));
 
         final Double averageOrderAmount = saleItemCount.get() == 0 ? 0.0 : totalSaleWithinTimeInterval / saleItemCount.get();
-
 
         return new SaleStatisticDTO(String.format("%.2f", totalSaleWithinTimeInterval), String.format("%.2f", averageOrderAmount));
     }

@@ -33,6 +33,7 @@ public class SaleController {
     }
 
     @GetMapping("/statistics")
+    @ResponseStatus(code = HttpStatus.OK)
     public SaleStatisticDTO getSalesStatistics() {
         return saleService.getSalesStatistics();
     }

@@ -20,12 +20,23 @@ public class DefaultSaleService implements SaleService {
         this.saleRepository = saleRepository;
     }
 
+    /**
+     * add a new sale.
+     *
+     * @param salesAmount
+     * @return
+     */
     @Override
     public void addSale(String salesAmount) {
         SaleDO saleDO = new SaleDO(UUID.randomUUID(), Double.parseDouble(salesAmount));
         saleRepository.upsert(saleDO.getId(), saleDO);
     }
 
+    /**
+     * get sales statistics of one minute.
+     *
+     * @return sales statistics
+     */
     @Override
     public SaleStatisticDTO getSalesStatistics() {
         LocalDateTime startDateTime = LocalDateTime.now();
