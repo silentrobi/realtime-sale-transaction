@@ -8,6 +8,7 @@ To build a system that can perform sale transactions.
 - Optimizing Memory Usage
 
 ## Development Tools
+- Maven
 - Java 11
 - Spring Boot
 
@@ -17,8 +18,9 @@ To build a system that can perform sale transactions.
 
 
 ## Setup
+- To build and run the project: `mvn clean spring-boot:run`
+- To verify performance test: `mvn clean verify`
 
-- To build and run the project
 ## About Performance Test
 To test the server's performance, I used JMeter GUI.
 

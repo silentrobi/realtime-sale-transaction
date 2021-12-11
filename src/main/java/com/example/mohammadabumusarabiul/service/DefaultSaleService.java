@@ -33,7 +33,7 @@ public class DefaultSaleService implements SaleService {
     }
 
     /**
-     * get sales statistics of one minute.
+     * get sales statistics of last one minute.
      *
      * @return sales statistics
      */
