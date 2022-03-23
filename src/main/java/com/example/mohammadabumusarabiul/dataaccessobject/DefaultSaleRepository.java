@@ -3,6 +3,7 @@ package com.example.mohammadabumusarabiul.dataaccessobject;
 import com.example.mohammadabumusarabiul.datatransferobject.SaleStatisticDTO;
 import com.example.mohammadabumusarabiul.domainobject.SaleDO;
 import com.example.mohammadabumusarabiul.util.DateTimeHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ public class DefaultSaleRepository extends AbstractCrudRepository<SaleDO, UUID> 
     private final ConcurrentHashMap<UUID, SaleDO> saleStorage;
     private final DateTimeHelper dateTimeHelper;
 
+    @Autowired
     public DefaultSaleRepository(final ConcurrentHashMap<UUID, SaleDO> saleStorage, final DateTimeHelper dateTimeHelper) {
         super(saleStorage);
         this.saleStorage = saleStorage;
